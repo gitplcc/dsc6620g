@@ -1,0 +1,19 @@
+# Forzar a Git a normalizar los saltos de línea a LF al hacer commit
+* text=auto eol=lf
+
+# Asegurar que los archivos de código fuente siempre usen LF
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.cc text eol=lf
+*.c text eol=lf
+
+# Marcar archivos de compilación, ejecutables y librerías como binarios
+*.exe binary
+*.a binary
+*.o binary
+*.so binary
+*.dll binary
+*.lib binary
+*.pdb binary
+*.dylib binary

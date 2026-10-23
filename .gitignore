@@ -1,0 +1,28 @@
+# Compilación y Binarios
+build/
+bin/
+obj/
+out/
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Archivos de depuración y diagnóstico
+*.pdb
+*.ilk
+*.rsp
+
+# Configuración local y caché de VS Code
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/ipch/
+.vscode/.cmaketools/
+.crypto
+
+# Archivos de CMake locales (si usas CMake)
+CMakeUserPresets.json
