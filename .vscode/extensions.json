@@ -1,0 +1,9 @@
+{
+	"recommendations": [
+		"editorconfig.editorconfig",
+		"mhutchie.git-graph",
+		"ms-vscode.cpptools-extension-pack",
+		"qiumingge.cpp-check-lint"
+	],
+	"unwantedRecommendations": []
+}

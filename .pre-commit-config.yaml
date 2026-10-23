@@ -1,31 +1,32 @@
 # .pre-commit-config.yaml
 repos:
-    # 1. Validaciones generales de archivos sincronizadas con tu .editorconfig
-    - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v6.0.0
-      hooks:
-          - id: trailing-whitespace # Cumple con trim_trailing_whitespace = true
-          - id: end-of-file-fixer # Cumple con insert_final_newline = true
-          - id: check-yaml
-          - id: check-added-large-files
-          - id: check-case-conflict
+  # 1. Validaciones generales de archivos sincronizadas con tu .editorconfig
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace # Cumple con trim_trailing_whitespace = true
+      - id: end-of-file-fixer # Cumple con insert_final_newline = true
+      - id: check-json
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-case-conflict
 
-    - repo: https://github.com/editorconfig-checker/editorconfig-checker
-      rev: v4.0.2
-      hooks:
-          - id: editorconfig-checker
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker
+    rev: v4.0.2
+    hooks:
+      - id: editorconfig-checker
 
-    # 3. Analizador estático (Linter)
-    - repo: https://github.com/pocc/pre-commit-hooks
-      rev: v1.4.0
-      hooks:
-          - id: cppcheck
-            args:
-                - --enable=all
-                - --suppress=missingIncludeSystem
-                # The URL is read by out-of-line methods but flagged when the header is checked.
-                - --suppress=unusedStructMember:dsc6620g/dlink_camera.hpp
-                # cURL requires mutable pointers in its write callback signature.
-                - --suppress=constParameterCallback:dsc6620g/dlink_camera.cpp
-                # This informational branch-limit message makes the hook return non-zero.
-                - --suppress=normalCheckLevelMaxBranches
+  # 3. Analizador estático (Linter)
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.4.0
+    hooks:
+      - id: cppcheck
+        args:
+          - --enable=all
+          - --suppress=missingIncludeSystem
+          # The URL is read by out-of-line methods but flagged when the header is checked.
+          - --suppress=unusedStructMember:dsc6620g/dlink_camera.hpp
+          # cURL requires mutable pointers in its write callback signature.
+          - --suppress=constParameterCallback:dsc6620g/dlink_camera.cpp
+          # This informational branch-limit message makes the hook return non-zero.
+          - --suppress=normalCheckLevelMaxBranches
