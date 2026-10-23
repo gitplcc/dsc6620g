@@ -14,9 +14,8 @@ struct AudioBufferState {
 };
 
 DLinkCamera::DLinkCamera(std::string ip, std::string user, std::string password)
-    : m_ip(std::move(ip)), m_user(std::move(user)),
-    m_password(std::move(password)) {
-    m_baseUrl = "http://" + m_user + ":" + m_password + "@" + m_ip;
+    : m_baseUrl("http://" + std::move(user) + ":" + std::move(password) + "@" +
+        std::move(ip)) {
     curl_global_init(CURL_GLOBAL_DEFAULT);
 }
 

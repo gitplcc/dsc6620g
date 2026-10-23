@@ -41,9 +41,6 @@ class DLinkCamera {
     bool sendMicrophoneFrame(const std::vector<uint8_t>& pcmData);
 
     private:
-    std::string m_ip;
-    std::string m_user;
-    std::string m_password;
     std::string m_baseUrl;
 
     bool sendCgiCommand(const std::string& cgiPath,
