@@ -1,4 +1,3 @@
-# Indica que este es el archivo de configuración raíz del proyecto
 root = true
 
 # Reglas globales para todos los archivos
@@ -9,39 +8,17 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # Configuración específica para C y C++
-[*.{cpp,h,hpp,cc,cxx,c}]
+[*.{c,h,cpp,hpp}]
 indent_style = space
 indent_size = 4
 tab_width = 4
+max_line_length = 100
 
-# --- Convenciones de Formato de C++ (Visual Studio / VS Code Engine) ---
+# Configuración para archivos de construcción y configuración (CMake, JSON, etc.)
+[CMakeLists.txt, *.cmake]
+indent_style = space
+indent_size = 4
 
-# Alineación e Identación
-cpp_indent_braces = false
-cpp_indent_case_contents = true
-cpp_indent_case_labels = false
-cpp_indent_namespace_contents = false
-cpp_indent_access_specifiers = true
-cpp_indent_goto_labels = leftmost_column
-cpp_indent_preprocessor = leftmost_column
-
-# Configuración de Nuevas Líneas (Estilo Allman / Braces en línea nueva)
-cpp_new_line_scope_braces_on_separate_lines = true
-cpp_new_line_before_else = true
-cpp_new_line_before_catch = true
-cpp_new_line_close_brace_same_line_empty_type = false
-cpp_new_line_close_brace_same_line_empty_function = false
-
-# Espaciados (Spacing)
-cpp_space_before_function_open_parenthesis = remove
-cpp_space_after_keywords_in_control_flow_statements = true
-cpp_space_before_block_open_brace = true
-cpp_space_within_control_flow_statement_parentheses = false
-cpp_space_remove_before_semicolon = true
-cpp_space_after_semicolon = true
-cpp_space_after_comma = true
-cpp_space_before_comma = false
-
-# Alineación de punteros y referencias (Opciones: left, center, right)
-# Ejemplo 'left': int* p;  |  Ejemplo 'right': int *p;
-cpp_space_pointer_reference_alignment = left
+[*.json]
+indent_style = space
+indent_size = 2

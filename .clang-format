@@ -1,0 +1,36 @@
+---
+# Base sólida basada en las directrices de Google/LLVM
+BasedOnStyle: Google
+
+# Estructura y Espaciado Moderno
+Language: Cpp
+Standard: Latest # Se adapta automáticamente a C++17, C++20, C++23 o C++26
+IndentWidth: 4 # 4 espacios es el estándar industrial más balanceado para legibilidad
+ColumnLimit: 100 # Ampliado a 100 para ajustarse a pantallas panorámicas modernas
+UseTab: Never # Forzar espacios para consistencia multiplataforma absoluta
+
+# Gestión de Punteros y Referencias
+PointerAlignment: Left # Estilo moderno: el asterisco va con el tipo (int* ptr)
+
+# Organización de Código Limpio
+SortIncludes: true # Ordena los #include alfabéticamente de forma automática
+IncludeCategories:
+  # 1. Cabeceras del sistema u oficiales (ej: <vector>, <string>)
+  - Regex: "^<[^.]*>"
+    Priority: 3
+  # 2. Cabeceras de librerías externas de C (ej: <stdio.h>, <pcap.h>)
+  - Regex: '^<.*\.h>'
+    Priority: 2
+  # 3. Tus propios archivos locales del proyecto (ej: "mi_clase.h")
+  - Regex: '^".*"'
+    Priority: 1
+FixNamespaceComments: true # Añade un comentario automático al cerrar un namespace (e.g., // namespace mi_proyecto)
+
+# Optimización de Espacio Vertical
+AllowShortBlocksOnASingleLine: Never # Evita contraer bloques de código en una sola línea
+AllowShortFunctionsOnASingleLine: Empty # Solo permite funciones en una línea si están vacías
+AllowShortIfStatementsOnASingleLine: Never # Prohíbe "if (cond) return;" en una sola línea para facilitar depuración
+
+# Llaves y Formato de Flujo (Estilo K&R / Attach)
+BreakBeforeBraces: Attach
+...
