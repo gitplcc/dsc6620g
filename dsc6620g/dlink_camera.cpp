@@ -1,4 +1,4 @@
-#include "dlink_camera.hpp"
+#include <dsc6620g/dlink_camera.hpp>
 
 #include <curl/curl.h>
 

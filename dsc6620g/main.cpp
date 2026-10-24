@@ -1,4 +1,4 @@
-#include "dlink_camera.hpp"
+#include <dsc6620g/dlink_camera.hpp>
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
