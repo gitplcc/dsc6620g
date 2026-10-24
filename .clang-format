@@ -8,6 +8,7 @@ Standard: Latest # Se adapta automáticamente a C++17, C++20, C++23 o C++26
 IndentWidth: 4 # 4 espacios es el estándar industrial más balanceado para legibilidad
 ColumnLimit: 100 # Ampliado a 100 para ajustarse a pantallas panorámicas modernas
 UseTab: Never # Forzar espacios para consistencia multiplataforma absoluta
+AccessModifierOffset: -3 # Indenta public/private un espacio desde el nivel de clase
 
 # Gestión de Punteros y Referencias
 PointerAlignment: Left # Estilo moderno: el asterisco va con el tipo (int* ptr)
