@@ -7,6 +7,10 @@
 *.hpp text eol=lf
 *.cc text eol=lf
 *.c text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.yaml text eol=lf
+*.editorconfig text eol=lf
 LICENSE text eol=lf
 
 # Marcar archivos de compilación, ejecutables y librerías como binarios
