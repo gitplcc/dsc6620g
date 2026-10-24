@@ -1,15 +1,15 @@
 {
-    "version": 3,
+    "version": 11,
     "cmakeMinimumRequired": {
-        "major": 3,
-        "minor": 21,
+        "major": 4,
+        "minor": 3,
         "patch": 0
     },
     "configurePresets": [
         {
             "name": "base",
             "hidden": true,
-            "description": "Configuración base común para todos los entornos",
+            "description": "Base configuration common to all environments",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
@@ -18,7 +18,7 @@
         {
             "name": "debug",
             "displayName": "Debug",
-            "description": "Compilación con símbolos de depuración y sin optimización",
+            "description": "Compilation with debug symbols and no optimization",
             "inherits": "base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -27,7 +27,7 @@
         {
             "name": "release",
             "displayName": "Release",
-            "description": "Compilación optimizada para producción",
+            "description": "Optimized compilation for production",
             "inherits": "base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"

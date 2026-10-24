@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 4.3.0...4.4.4)
+
 project(dsc6620g LANGUAGES CXX)
 
 # --- 1. CPM automatic downloading & including ---
@@ -12,9 +13,9 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/cmake/CPM.cmake")
 endif()
 include("${CMAKE_BINARY_DIR}/cmake/CPM.cmake")
 
-# --- 2. CENTRALIZAR BINARIOS (Solución al error "no se encuentra xxx.dll") ---
+# --- 2. Centralized binary management (Solution to the error "file not found xxx.dll") ---
 if(WIN32)
-# Redirige ejecutables (*.exe) y librerías dinámicas (*.dll) a la misma carpeta
+# Redirects executables (*.exe) and dynamic libraries (*.dll) to the same folder
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 endif()
 
@@ -29,18 +30,23 @@ CPMAddPackage(
         "SDL_SHARED ON"
         "SDL_STATIC OFF"
         "SDL_TEST OFF"
+        "SDL_TEST_LIBRARY OFF"
 )
 
-# B. Descargar libcurl de forma portable
+# B. Download libcurl in a portable way
 CPMAddPackage(
     NAME curl
     GIT_REPOSITORY "https://github.com/curl/curl.git"
     GIT_TAG curl-8_23_0
     OPTIONS
         "BUILD_CURL_EXE OFF"
+        "BUILD_EXAMPLES OFF"
         "BUILD_LIBCURL_DISABLE_LDAP ON"
+        "BUILD_LIBCURL_DOCS OFF"
+        "BUILD_MISC_DOCS OFF"
         "BUILD_SHARED_LIBS ON"
-        "CMAKE_DISABLE_FIND_PACKAGE_Libssh2 ON" # Desactiva por completo el escaneo de SSH2
+        "BUILD_TESTING OFF"
+        "CMAKE_DISABLE_FIND_PACKAGE_Libssh2 ON" # Disables SSH2 scanning completely
         "CURL_BROTLI OFF"
         "CURL_DISABLE_COOKIES ON"
         "CURL_USE_LIBIDN2 OFF"
@@ -54,18 +60,19 @@ CPMAddPackage(
         "USE_NGHTTP2 OFF"
 )
 
-# C. Descargar Dear ImGui
+# C. Download Dear ImGui
 CPMAddPackage(
     NAME imgui
     GIT_REPOSITORY "https://github.com/ocornut/imgui.git"
     GIT_TAG v1.93.0
 )
 
-# --- 4. El caso especial de FFmpeg ---
-if(WIN32)
-    message(STATUS "Entorno Windows detectado. Configurando dependencias nativas de FFmpeg...")
+# --- 4. The special case of FFmpeg ---
+set(ffmpeg_components avformat avcodec avutil swscale)
+if(WIN32)  # Precompiled binaries for Windows
+    message(STATUS "Windows environment detected. Configuring native FFmpeg dependencies...")
 
-    set(FFMPEG_ROOT "" CACHE PATH "Directorio raíz de instalación de FFmpeg")
+    set(FFMPEG_ROOT "" CACHE PATH "Root directory of FFmpeg installation")
 
     find_path(FFMPEG_INCLUDE_DIR
         NAMES libavformat/avformat.h
@@ -73,30 +80,28 @@ if(WIN32)
         REQUIRED
     )
 
-    foreach(component IN ITEMS avformat avcodec avutil swscale)
+    foreach(component IN LISTS ffmpeg_components)
         find_library(FFMPEG_${component}_LIBRARY
             NAMES ${component}
             HINTS "${FFMPEG_ROOT}/lib"
             REQUIRED
         )
+        add_library(${component} SHARED IMPORTED)
+        set_target_properties(${component} PROPERTIES
+            IMPORTED_IMPLIB "${FFMPEG_${component}_LIBRARY}"
+            # IMPORTED_LOCATION "${FFMPEG_${component}_DLL}"
+        )
+        target_include_directories(${component} INTERFACE "${FFMPEG_INCLUDE_DIR}")
+        add_library(ffmpeg::${component} ALIAS ${component})
     endforeach()
-
-    set(AVFORMAT_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
-    set(AVCODEC_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
-    set(AVUTIL_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
-    set(SWSCALE_INCLUDE_DIRS "${FFMPEG_INCLUDE_DIR}")
-    set(AVFORMAT_LIBRARIES "${FFMPEG_avformat_LIBRARY}")
-    set(AVCODEC_LIBRARIES "${FFMPEG_avcodec_LIBRARY}")
-    set(AVUTIL_LIBRARIES "${FFMPEG_avutil_LIBRARY}")
-    set(SWSCALE_LIBRARIES "${FFMPEG_swscale_LIBRARY}")
 else()
-    message(STATUS "Entorno Linux/POSIX detectado. Utilizando PkgConfig nativo...")
-    # En Linux / Raspberry Pi se mantiene el estándar nativo del sistema
+    message(STATUS "Linux/POSIX environment detected. Using native PkgConfig...")
+    # On Linux / Raspberry Pi, the native standard is maintained
     find_package(PkgConfig REQUIRED)
-    pkg_check_modules(AVFORMAT REQUIRED libavformat)
-    pkg_check_modules(AVCODEC REQUIRED libavcodec)
-    pkg_check_modules(AVUTIL REQUIRED libavutil)
-    pkg_check_modules(SWSCALE REQUIRED libswscale)
+    foreach(component IN LISTS ffmpeg_components)
+        pkg_check_modules(${component} REQUIRED IMPORTED_TARGET lib${component})
+        add_library(ffmpeg::${component} ALIAS PkgConfig::${component})
+    endforeach()
 endif()
 
 # --- 5. Add app ---
