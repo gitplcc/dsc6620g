@@ -13,6 +13,8 @@ struct AudioBufferState {
     size_t bytesRemaining;
 };
 
+using dsc6620g::DLinkCamera;
+
 DLinkCamera::DLinkCamera(std::string ip, std::string user, std::string password)
     : m_baseUrl("http://" + std::move(user) + ":" + std::move(password) + "@" +
         std::move(ip)) {

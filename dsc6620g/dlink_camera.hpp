@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+namespace dsc6620g {
+
 class DLinkCamera {
     public:
     enum class PTZDirection { UP, DOWN, LEFT, RIGHT, HOME };
@@ -54,4 +56,5 @@ class DLinkCamera {
         void* userp);
 };
 
+}  // namespace dsc6620g
 #endif  // DSC6620G_DLINK_CAMERA_HPP_
