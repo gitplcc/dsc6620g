@@ -1,3 +1,8 @@
+// Copyright (c) 2026 Pedro Luis Castedo Cepeda
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #ifndef DLINK_CAMERA_HPP
 #define DLINK_CAMERA_HPP
 

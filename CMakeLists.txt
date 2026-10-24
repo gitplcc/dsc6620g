@@ -1,3 +1,8 @@
+# Copyright (c) 2026 Pedro Luis Castedo Cepeda
+#
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+
 cmake_minimum_required(VERSION 4.3.0...4.4.4)
 
 project(dsc6620g LANGUAGES CXX)

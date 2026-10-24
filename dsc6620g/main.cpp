@@ -1,3 +1,8 @@
+// Copyright (c) 2026 Pedro Luis Castedo Cepeda
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 #include <dsc6620g/dlink_camera.hpp>
 
 #include <SDL3/SDL.h>
